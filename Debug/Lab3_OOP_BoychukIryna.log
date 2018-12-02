@@ -1,4 +1,4 @@
-﻿  main.cpp
-c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\main.cpp(82): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  ConvexHull.cpp
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\convexhull.cpp(17): warning C4018: '<': signed/unsigned mismatch
   Lab3_OOP_BoychukIryna.vcxproj -> C:\Users\Irish\source\repos\Lab3_OOP_BoychukIryna\Debug\Lab3_OOP_BoychukIryna.exe
   Lab3_OOP_BoychukIryna.vcxproj -> C:\Users\Irish\source\repos\Lab3_OOP_BoychukIryna\Debug\Lab3_OOP_BoychukIryna.pdb (Partial PDB)

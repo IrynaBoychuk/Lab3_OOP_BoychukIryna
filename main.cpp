@@ -3,60 +3,9 @@
 #include"SFML\Window.hpp"
 #include"SFML\System.hpp"
 #include "Vector2.h"
-
-
-//#include <sstream>
-//#include<fstream>
-//using namespace std;
-//
-//class Figure
-//{
-//
-//};
-//
-//class Point
-//{
-//private:
-//	double X, Y;
-//public:
-//	Point(double x = 0, double  y = 0) :X(x), Y(y) {}
-//
-//	double getX()const{ return X; }
-//	double getY()const{ return Y; }
-//
-//
-//
-//	Point operator + (Point & point) {
-//		double pointX = this->X + point.getX();
-//		double pointY = this->Y + point.getY();
-//		Point P(pointX, pointY);
-//		return P;
-//	}
-//	Point plus(Point & point) {
-//		double pointX = this->X + point.getX();
-//		double pointY = this->Y + point.getY();
-//		Point P(pointX, pointY);
-//		return P;
-//	}
-//	static Point staticplus(Point & point1, Point & point2) {
-//		double pointX = point1.getX() + point2.getX();
-//		double pointY = point1.getY() + point2.getY();
-//		Point P(pointX, pointY);
-//		return P;
-//	}
-//	Point operator - (Point & point)
-//	{
-//		double pointX = this->X - point.getX();
-//		double pointY = this->Y - point.getY();
-//		Point P(pointX, pointY);
-//		return P;
-//	}
-//	friend ostream & operator<<(ostream & os, const Point & point)
-//	{
-//		os << "(" <<point.getX()<<","<< point.getY()<<")"<<endl;
-//		return os;
-//	}
-//};
+#include "Point.h"
+#include "BasePointMethod.h"
+#include "ConvexHull.h"
 
 float RandomFloat(float a, float b) {
 	const float random = ((float)rand()) / (float)RAND_MAX;
@@ -70,74 +19,84 @@ using namespace std;
 
 int main(int argc, char * argv[]) //argc is the count of argument.argv is short for argument variable
 {
-	//визначення к-сті точок
-	int numberPoints = 100;
-	if (argc > 1)
+	int n;
+	scanf_s("%d", &n);
+	vector <Point> p;
+	for (int i = 0; i < n; i++)
 	{
-		numberPoints = atoi(argv[1]); // convert the first argument to an int 
+		int x, y;
+		scanf_s("%d %d", &x, &y);
+		p.push_back(Point{ x,y });
 	}
 
-	//генерація точок
-	cout << "Generating " << numberPoints << " random points" << endl;
-	srand(time(NULL));
-	vector<Vector2<float> > points;
-	for (int i = 0; i < numberPoints; ++i) {
-		points.push_back(Vector2<float>(RandomFloat(0, 800), RandomFloat(0, 600)));
-	}
-	
-	// робота з вікном SFML, а саме коодинати точки кліком на вікно
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) // лівою кнопкой миші
+	BasePointMethod *method = new ConvexHull(p);
+	//*method = new Voronnyi(p);
+	method->Build();
+
+	sf::RenderWindow window(sf::VideoMode(1200, 900), "ConvexHull");
+	bool drawn = false;
+	while (window.isOpen())
 	{
-	}
-	//sf::Vector2f mouse_world = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
-
-
-
-
-	// SFML window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Delaunay triangulation");
-
-	
-	//Перетворення точок в квадратики Transform each points of each vector as a Circle
-		std::vector<sf::CircleShape*> squares;
-		for (const auto p : points) {
-			sf::CircleShape *c1 = new sf::CircleShape(2);
-			c1->setPosition(p.x, p.y);
-			squares.push_back(c1);
-		}
-
-	
-
-		while (window.isOpen())
+		sf::Event event;
+		while (window.pollEvent(event))
 		{
-			sf::Event event;
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-					window.close();
-			}
-
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		if (!drawn) {
+			drawn = true;
 			window.clear();
 
-			// Draw the squares
-			for (const auto &s : squares) {
-				window.draw(*s);
-			}
-
-			
+			method->Draw(window);
 
 			window.display();
 		}
-	
-
-
+	}
+	p.at(0);
 	system("pause");
 	return 0;
 }
 
+////визначення к-сті точок
+//int numberPoints = 20;
+//if (argc > 1)
+//{
+//	numberPoints = atoi(argv[1]); // convert the first argument to an int 
+//}
 
+////генерація точок
+//cout << "Generating " << numberPoints << " random points" << endl;
+//srand(time(NULL));
+//vector<Vector2<float> > points;
+//for (int i = 0; i < numberPoints; ++i) {
+//	points.push_back(Vector2<float>(RandomFloat(0, 800), RandomFloat(0, 600)));
+//}
+//// SFML window
+//sf::RenderWindow window(sf::VideoMode(800, 600), "Delaunay triangulation");
+////Перетворення точок в кружочки Transform each points of each vector as a Circle
+//	std::vector<sf::CircleShape*> circles;
+//	for (const auto p : points) {
+//		sf::CircleShape *c1 = new sf::CircleShape(4);
+//		c1->setPosition(p.x, p.y);
+//		circles.push_back(c1);
+//	}
 
+//	while (window.isOpen())
+//	{
+//		sf::Event event;
+//		while (window.pollEvent(event))
+//		{
+//			if (event.type == sf::Event::Closed)
+//				window.close();
+//		}
+//		window.clear();
+//		// Draw the circles
+//		for (const auto &s : circles) {
+//			window.draw(*s);
+//		}	
 
+//		window.display();
+//	}
 
 
 
@@ -160,25 +119,6 @@ int main(int argc, char * argv[]) //argc is the count of argument.argv is short 
 //	window.draw(l.data(), 2, sf::Lines);
 //}
 
-
-//GreenCircle
-//sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-//sf::CircleShape shape(100.f);
-//shape.setFillColor(sf::Color::Green);
-//
-//while (window.isOpen())
-//{
-//	sf::Event event;
-//	while (window.pollEvent(event))
-//	{
-//		if (event.type == sf::Event::Closed)
-//			window.close();
-//	}
-//
-//	window.clear();
-//	window.draw(shape);
-//	window.display();
-//}
 
 
 //Point point1(3,4), point2(6,7), point3(5,9);

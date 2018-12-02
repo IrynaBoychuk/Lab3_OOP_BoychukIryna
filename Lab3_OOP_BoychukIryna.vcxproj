@@ -119,9 +119,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasePointMethod.cpp" />
+    <ClCompile Include="ConvexHull.cpp" />
+    <ClCompile Include="Point.h" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasePointMethod.h" />
+    <ClInclude Include="ConvexHull.h" />
+    <ClInclude Include="Edge.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
