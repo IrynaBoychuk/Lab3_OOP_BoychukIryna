@@ -8,7 +8,7 @@
 
 struct Point
 {
-	int x;
-	int y;
+	double x;
+	double y;
 };
 

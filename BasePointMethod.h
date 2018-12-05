@@ -29,6 +29,6 @@ public:
 	virtual void Build()=0;
 	virtual void Draw(RenderWindow &window)=0;
 
-	void DrawPoints(RenderWindow &window, std::vector<Point> pointList, Color color=Color::White, int size=4);
-	void DrawEdges(RenderWindow &window, std::vector<Edge> lineList, Color color=Color::White, int size=4);
+	void static DrawPoints(RenderWindow &window, std::vector<Point> pointList, Color color=Color::White, int size=4);
+	void static DrawEdges(RenderWindow &window, std::vector<Edge> lineList, Color color=Color::White, int size=4);
 };

@@ -1,61 +1,179 @@
 #include<iostream>
+#include <fstream>
 #include"SFML\Graphics.hpp"
 #include"SFML\Window.hpp"
 #include"SFML\System.hpp"
-#include "Vector2.h"
+//#include "Vector2.h"
 #include "Point.h"
 #include "BasePointMethod.h"
 #include "ConvexHull.h"
+#include "DelaunayTriangulation.h"
 
-float RandomFloat(float a, float b) {
-	const float random = ((float)rand()) / (float)RAND_MAX;
-	const float diff = b - a;
-	const float r = random * diff;
-	return a + r;
+double Random(double b) {
+	double random = ((double)rand()) / (double)RAND_MAX;
+	double diff = b;
+	double r = random * diff;
+	return r;
 }
 
 using namespace std;
-//using namespace sf;
+using namespace sf;
 
-int main(int argc, char * argv[]) //argc is the count of argument.argv is short for argument variable
+
+enum EWindowState {
+	RandomInput,
+	Draw
+};
+
+int main(int argc, char * argv[])
 {
-	int n;
-	scanf_s("%d", &n);
-	vector <Point> p;
-	for (int i = 0; i < n; i++)
+	int numberPoints = 20;
+	EWindowState windowState = Draw;
+	vector <Point> chosenPoints;
+	int x;
+	cout << "Choose method of gettin coordinates points from 1 to 3:" << endl;
+	cin >> x;
+	if (x == 1)
 	{
-		int x, y;
-		scanf_s("%d %d", &x, &y);
-		p.push_back(Point{ x,y });
+		ifstream fin("input.txt");
+		double x, y;
+		fin >> numberPoints;
+		for (int i = 0; i < numberPoints; i++) {
+			fin >> x >> y;
+			chosenPoints.push_back(Point{ x,y });
+		}
+	}
+	//генерація точок
+	else if (x == 2)
+	{
+		srand(time(NULL));
+		for (int i = 0; i < numberPoints; ++i)
+		{
+			double x, y;
+			x = Random(700);
+			y = Random(800);
+			chosenPoints.push_back(Point{ x,y });
+		}
+	}
+	else if (x == 3)
+	{
+		windowState = RandomInput;
+		cout << "Future mouse method" << endl;
 	}
 
-	BasePointMethod *method = new ConvexHull(p);
-	//*method = new Voronnyi(p);
-	method->Build();
+	//TODO in other function?
+	Texture part1, part2, part3;
+	part1.loadFromFile("Convexhull.png");
+	part2.loadFromFile("Delaunaytriangulation.png");
+	part3.loadFromFile("Voronoidiagram.png");
 
-	sf::RenderWindow window(sf::VideoMode(1200, 900), "ConvexHull");
+	Sprite menu1(part1), menu2(part2), menu3(part3);
+	menu1.setPosition(800, 50);
+	menu2.setPosition(800, 200);
+	menu3.setPosition(800, 350);
+
+
+
 	bool drawn = false;
+	BasePointMethod *method = nullptr;
+	ConvexHull *methodCH = nullptr;
+	DelaunayTriangulation *methodDT = nullptr;
+	//Voroniy *methodV = nullptr;
+	sf::RenderWindow window(sf::VideoMode(1200, 900), "ConvexHull");
 	while (window.isOpen())
 	{
+		/*if (x == 3 && Mouse::isButtonPressed(Mouse::Left))
+		{
+			Vector2i pointParam = Mouse::getPosition(window);
+			double x = pointParam.x;
+			double y = pointParam.y;
+			p.push_back(Point{ x, y });
+		}*/
+		//method= new ConvexHull(chosenPoints);
+		////*method = new Voronnyi(p);
+		//method->Build();
 		sf::Event event;
+		int menuNum = 0;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if (event.type == sf::Event::Resized)
+			{
+				drawn = false;
+			}
+			if (event.type == sf::Event::MouseButtonReleased)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					//menu
+					auto mousePos = sf::Mouse::getPosition(window);
+					auto xx = menu1.getLocalBounds();
+					if (sf::IntRect(800, 50, 370, 150).contains(sf::Mouse::getPosition(window))) {
+						menuNum = 1;
+						windowState = Draw;
+						if (methodCH == nullptr) {
+							methodCH = new ConvexHull(chosenPoints);
+							methodCH->Build();
+						}
+						drawn = false;
+						method = methodCH;
+					}
+					else if (sf::IntRect(800, 200, 370, 150).contains(sf::Mouse::getPosition(window))) {
+						menuNum = 2;
+						windowState = Draw;
+						if (methodDT == nullptr){
+							methodDT = new DelaunayTriangulation(chosenPoints);
+							methodDT->Build();
+						}
+						drawn = false;
+						method = methodDT;
+					}
+					else if (sf::IntRect(800, 350, 370, 150).contains(sf::Mouse::getPosition(window))) {
+						menuNum = 3;
+						windowState = Draw;
+					}
+					//select points
+					else if (windowState == RandomInput) {
+						//
+						Vector2i pointParam = Mouse::getPosition(window);
+						double x = pointParam.x;
+						double y = pointParam.y;
+						chosenPoints.push_back(Point{ x, y });
+
+						drawn = false;
+					}
+				}
+			}
 		}
-		if (!drawn) {
+
+		if (!drawn ) {
 			drawn = true;
 			window.clear();
 
-			method->Draw(window);
+			window.draw(menu1);
+			window.draw(menu2);
+			window.draw(menu3);
+
+
+			if (windowState == RandomInput)
+				BasePointMethod::DrawPoints(window, chosenPoints);
+
+			if(method!=nullptr && windowState == Draw)
+				method->Draw(window);
 
 			window.display();
 		}
 	}
-	p.at(0);
 	system("pause");
 	return 0;
 }
+
+
+
+
+
+
 
 ////визначення к-сті точок
 //int numberPoints = 20;
@@ -81,6 +199,8 @@ int main(int argc, char * argv[]) //argc is the count of argument.argv is short 
 //		circles.push_back(c1);
 //	}
 
+
+
 //	while (window.isOpen())
 //	{
 //		sf::Event event;
@@ -101,23 +221,6 @@ int main(int argc, char * argv[]) //argc is the count of argument.argv is short 
 
 
 
-
-//// Make the lines
-//std::vector<std::array<sf::Vertex, 2> > lines;
-//for (const auto &e : edges) {
-//	lines.push_back({ {
-//			sf::Vertex(sf::Vector2f(e.p1.x + 2, e.p1.y + 2)),
-//			sf::Vertex(sf::Vector2f(e.p2.x + 2, e.p2.y + 2))
-//		} });
-//}
-
-
-
-
-//// Draw the lines
-//for (const auto &l : lines) {
-//	window.draw(l.data(), 2, sf::Lines);
-//}
 
 
 

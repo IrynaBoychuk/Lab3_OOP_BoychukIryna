@@ -121,12 +121,14 @@
   <ItemGroup>
     <ClCompile Include="BasePointMethod.cpp" />
     <ClCompile Include="ConvexHull.cpp" />
+    <ClCompile Include="DelaunayTriangulation.cpp" />
     <ClCompile Include="Point.h" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasePointMethod.h" />
     <ClInclude Include="ConvexHull.h" />
+    <ClInclude Include="DelaunayTriangulation.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>

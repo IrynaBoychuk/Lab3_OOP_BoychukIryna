@@ -1,4 +1,18 @@
-﻿  ConvexHull.cpp
+﻿  main.cpp
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\main.cpp(49): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Point.h
+  DelaunayTriangulation.cpp
+  ConvexHull.cpp
 c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\convexhull.cpp(17): warning C4018: '<': signed/unsigned mismatch
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\convexhull.cpp(36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\convexhull.cpp(37): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\convexhull.cpp(38): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\convexhull.cpp(39): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  BasePointMethod.cpp
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\basepointmethod.cpp(44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\basepointmethod.cpp(46): warning C4244: 'argument': conversion from 'const double' to 'float', possible loss of data
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\basepointmethod.cpp(62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\irish\source\repos\lab3_oop_boychukiryna\lab3_oop_boychukiryna\basepointmethod.cpp(63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   Lab3_OOP_BoychukIryna.vcxproj -> C:\Users\Irish\source\repos\Lab3_OOP_BoychukIryna\Debug\Lab3_OOP_BoychukIryna.exe
   Lab3_OOP_BoychukIryna.vcxproj -> C:\Users\Irish\source\repos\Lab3_OOP_BoychukIryna\Debug\Lab3_OOP_BoychukIryna.pdb (Partial PDB)
