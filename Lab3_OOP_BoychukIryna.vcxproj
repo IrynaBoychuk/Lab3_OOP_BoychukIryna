@@ -124,6 +124,7 @@
     <ClCompile Include="DelaunayTriangulation.cpp" />
     <ClCompile Include="Point.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VoronoiDiagram.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasePointMethod.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="DelaunayTriangulation.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="VoronoiDiagram.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

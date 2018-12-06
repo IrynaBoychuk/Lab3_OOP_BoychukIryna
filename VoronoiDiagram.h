@@ -11,19 +11,17 @@
 #include "Point.h"
 #include"BasePointMethod.h"
 
-//#include "vector2.h"
-//#include "triangle.h"
-//#include "delaunay.h"
-
 using namespace sf;
-class DelaunayTriangulation : public BasePointMethod
+class VoronoiDiagram : public BasePointMethod
 {
 private:
-	std::vector<Point> delaunayTriangulation;
+	std::vector<Point> voronoidiagram;
+	//std::vector<Point> voronoiCentr;
 	std::vector<Edge> edges;
 public:
-	DelaunayTriangulation(vector<Point> points) :BasePointMethod(points) {};
-	~DelaunayTriangulation() {};
+	VoronoiDiagram(vector<Point> points) :BasePointMethod(points) {};
+	~VoronoiDiagram() {};
+	void VoronoiFindCentr();
 	void Build();
 	void Draw(RenderWindow &window);
 	void FillEdges();

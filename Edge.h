@@ -5,7 +5,6 @@
 #include <cmath>
 #include<algorithm>
 #include<cassert>
-
 #include "Point.h" 
 
 struct Edge

@@ -8,6 +8,7 @@
 #include "BasePointMethod.h"
 #include "ConvexHull.h"
 #include "DelaunayTriangulation.h"
+#include "VoronoiDiagram.h"
 
 double Random(double b) {
 	double random = ((double)rand()) / (double)RAND_MAX;
@@ -78,8 +79,8 @@ int main(int argc, char * argv[])
 	BasePointMethod *method = nullptr;
 	ConvexHull *methodCH = nullptr;
 	DelaunayTriangulation *methodDT = nullptr;
-	//Voroniy *methodV = nullptr;
-	sf::RenderWindow window(sf::VideoMode(1200, 900), "ConvexHull");
+	VoronoiDiagram *methodV = nullptr;
+	sf::RenderWindow window(sf::VideoMode(1200, 900), "Building");
 	while (window.isOpen())
 	{
 		/*if (x == 3 && Mouse::isButtonPressed(Mouse::Left))
@@ -132,6 +133,12 @@ int main(int argc, char * argv[])
 					else if (sf::IntRect(800, 350, 370, 150).contains(sf::Mouse::getPosition(window))) {
 						menuNum = 3;
 						windowState = Draw;
+						if (methodV == nullptr) {
+							methodV = new VoronoiDiagram(chosenPoints);
+							methodV->Build();
+						}
+						drawn = false;
+						method = methodV;
 					}
 					//select points
 					else if (windowState == RandomInput) {
