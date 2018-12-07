@@ -59,8 +59,8 @@ void BasePointMethod::DrawEdges(RenderWindow &window, std::vector<Edge> LineList
 	std::vector<std::array<sf::Vertex, 2> > lines;
 	for (const auto &e : LineList) {
 		lines.push_back({ {
-				sf::Vertex(sf::Vector2f(e.p1.x + 4, e.p1.y + 4)),
-				sf::Vertex(sf::Vector2f(e.p2.x + 4, e.p2.y + 4))
+				sf::Vertex(sf::Vector2f(e.p1.x + 4, e.p1.y + 4),color),
+				sf::Vertex(sf::Vector2f(e.p2.x + 4, e.p2.y + 4),color)
 			} });
 	}
 	// Draw the lines

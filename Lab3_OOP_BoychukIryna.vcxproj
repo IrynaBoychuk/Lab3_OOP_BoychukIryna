@@ -131,7 +131,11 @@
     <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="DelaunayTriangulation.h" />
     <ClInclude Include="Edge.h" />
-    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="FromTestSFML\delaunay.h" />
+    <ClInclude Include="FromTestSFML\edge.h" />
+    <ClInclude Include="FromTestSFML\numeric.h" />
+    <ClInclude Include="FromTestSFML\triangle.h" />
+    <ClInclude Include="FromTestSFML\vector2.h" />
     <ClInclude Include="VoronoiDiagram.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

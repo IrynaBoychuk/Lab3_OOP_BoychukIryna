@@ -32,7 +32,7 @@ int main(int argc, char * argv[])
 	EWindowState windowState = Draw;
 	vector <Point> chosenPoints;
 	int x;
-	cout << "Choose method of gettin coordinates points from 1 to 3:" << endl;
+	cout << "Choose method of getting coordinates points from 1 to 3 (file,randow,mouseclick):" << endl;
 	cin >> x;
 	if (x == 1)
 	{
@@ -59,10 +59,9 @@ int main(int argc, char * argv[])
 	else if (x == 3)
 	{
 		windowState = RandomInput;
-		cout << "Future mouse method" << endl;
+		cout << "Mouse method" << endl;
 	}
 
-	//TODO in other function?
 	Texture part1, part2, part3;
 	part1.loadFromFile("Convexhull.png");
 	part2.loadFromFile("Delaunaytriangulation.png");
@@ -83,16 +82,6 @@ int main(int argc, char * argv[])
 	sf::RenderWindow window(sf::VideoMode(1200, 900), "Building");
 	while (window.isOpen())
 	{
-		/*if (x == 3 && Mouse::isButtonPressed(Mouse::Left))
-		{
-			Vector2i pointParam = Mouse::getPosition(window);
-			double x = pointParam.x;
-			double y = pointParam.y;
-			p.push_back(Point{ x, y });
-		}*/
-		//method= new ConvexHull(chosenPoints);
-		////*method = new Voronnyi(p);
-		//method->Build();
 		sf::Event event;
 		int menuNum = 0;
 		while (window.pollEvent(event))
@@ -107,7 +96,7 @@ int main(int argc, char * argv[])
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
-					//menu
+				
 					auto mousePos = sf::Mouse::getPosition(window);
 					auto xx = menu1.getLocalBounds();
 					if (sf::IntRect(800, 50, 370, 150).contains(sf::Mouse::getPosition(window))) {
@@ -142,12 +131,10 @@ int main(int argc, char * argv[])
 					}
 					//select points
 					else if (windowState == RandomInput) {
-						//
 						Vector2i pointParam = Mouse::getPosition(window);
 						double x = pointParam.x;
 						double y = pointParam.y;
 						chosenPoints.push_back(Point{ x, y });
-
 						drawn = false;
 					}
 				}

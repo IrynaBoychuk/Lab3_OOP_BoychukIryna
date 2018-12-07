@@ -4,7 +4,6 @@
 #include"SFML\Graphics.hpp"
 #include"SFML\Window.hpp"
 #include"SFML\System.hpp"
-#include "Vector2.h"
 #include <vector>
 #include <cstdio>
 #include <vector>
